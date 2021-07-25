@@ -89,16 +89,19 @@ function draw() {
     background(200);
     stroke(0);
     line(0, 0, width, height);
-    for (let i = 0; i < points.length; i++){
-        points[i].show();
+    for (let pt of points){
+        pt.show();
     }
     
-    for (let i = 0; i < points.length; i++){
-        let inputs3 = [points[i].x, points[i].y];
-        let target = points[i].label;
+    // let inputs3;
+    // let target;
+    
+    for (let point of points){
+        let inputs3 = [point.x, point.y];
+        let target = point.label;
 
-        brain.train(inputs3, target);
-        
+        // brain.train(inputs3, target);
+
         let guess2 =  brain.guess(inputs3);
 
         if (guess2 == target) {
@@ -107,6 +110,17 @@ function draw() {
             fill(255, 0, 0);
         }
         noStroke();
-        ellipse(points[i].x, points[i].y, 8, 8);
+        ellipse(point.x, point.y, 8, 8);
+    }
+    
+    
+}
+
+function mousePressed() {
+    for (let point of points){
+        let inputs3 = [point.x, point.y];
+        let target = point.label;
+
+        brain.train(inputs3, target);
     }
 }
